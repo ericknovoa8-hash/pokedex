@@ -14,6 +14,33 @@ import { useFavorites } from "@/context/FavoritesContext";
 import { usePokemonDetail } from "@/hooks/usePokemonDetail";
 import { PokemonListItem } from "@/types/pokemon";
 
+const typeVisuals: Record<
+  string,
+  { icon: string; color: string; background: string }
+> = {
+  bug: { icon: "🪲", color: "#3f6212", background: "#ecfccb" },
+  dark: { icon: "🌙", color: "#312e81", background: "#e0e7ff" },
+  dragon: { icon: "🐉", color: "#6b21a8", background: "#f3e8ff" },
+  electric: { icon: "⚡", color: "#a16207", background: "#fef9c3" },
+  fairy: { icon: "✨", color: "#be185d", background: "#fce7f3" },
+  fighting: { icon: "🥊", color: "#9a3412", background: "#ffedd5" },
+  fire: { icon: "🔥", color: "#c2410c", background: "#ffedd5" },
+  flying: { icon: "🪽", color: "#0369a1", background: "#e0f2fe" },
+  ghost: { icon: "👻", color: "#4338ca", background: "#eef2ff" },
+  grass: { icon: "🌿", color: "#15803d", background: "#dcfce7" },
+  ground: { icon: "🏜️", color: "#92400e", background: "#fef3c7" },
+  ice: { icon: "❄️", color: "#0e7490", background: "#cffafe" },
+  normal: { icon: "⭐", color: "#475569", background: "#f1f5f9" },
+  poison: { icon: "☠️", color: "#7e22ce", background: "#f3e8ff" },
+  psychic: { icon: "🔮", color: "#be123c", background: "#ffe4e6" },
+  rock: { icon: "🪨", color: "#57534e", background: "#e7e5e4" },
+  steel: { icon: "⚙️", color: "#334155", background: "#e2e8f0" },
+  water: { icon: "💧", color: "#0369a1", background: "#e0f2fe" },
+};
+
+const getTypeVisual = (type: string) =>
+  typeVisuals[type] ?? { icon: "❔", color: "#475569", background: "#f1f5f9" };
+
 const PokemonDetailScreen = () => {
   const { name } = useLocalSearchParams<{ name: string }>();
   const { pokemon, loading, error } = usePokemonDetail(name);
@@ -47,6 +74,7 @@ const PokemonDetailScreen = () => {
   }
 
   const favorite = isFavorite(pokemon.name);
+  const primaryType = getTypeVisual(pokemon.types[0]?.type.name);
   const pokemonAsListItem: PokemonListItem = {
     name: pokemon.name,
     url: `https://pokeapi.co/api/v2/pokemon/${pokemon.id}/`,
@@ -54,7 +82,7 @@ const PokemonDetailScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.hero}>
+      <View style={[styles.hero, { backgroundColor: primaryType.background }]}>
         <Text style={styles.eyebrow}>Pokemon #{pokemon.id}</Text>
         <View style={styles.titleRow}>
           <Text style={styles.title}>{pokemon.name}</Text>
@@ -91,8 +119,27 @@ const PokemonDetailScreen = () => {
         <Text style={styles.sectionTitle}>Tipos</Text>
         <View style={styles.typeList}>
           {pokemon.types.map((pokemonType) => (
-            <View key={pokemonType.slot} style={styles.typeTag}>
-              <Text style={styles.typeText}>{pokemonType.type.name}</Text>
+            <View
+              key={pokemonType.slot}
+              style={[
+                styles.typeTag,
+                {
+                  backgroundColor: getTypeVisual(pokemonType.type.name)
+                    .background,
+                },
+              ]}
+            >
+              <Text style={styles.typeIcon}>
+                {getTypeVisual(pokemonType.type.name).icon}
+              </Text>
+              <Text
+                style={[
+                  styles.typeText,
+                  { color: getTypeVisual(pokemonType.type.name).color },
+                ]}
+              >
+                {pokemonType.type.name}
+              </Text>
             </View>
           ))}
         </View>
@@ -135,7 +182,7 @@ const PokemonDetailScreen = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 18,
-    backgroundColor: "#f8fafc",
+    backgroundColor: "#a8ddd7",
   },
   centeredContainer: {
     flex: 1,
@@ -151,6 +198,8 @@ const styles = StyleSheet.create({
   },
   hero: {
     alignItems: "center",
+    width: "100%",
+    borderRadius: 22,
     paddingVertical: 16,
   },
   titleRow: {
@@ -199,10 +248,15 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   typeTag: {
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 12,
     paddingVertical: 7,
     borderRadius: 20,
-    backgroundColor: "#dbeafe",
+  },
+  typeIcon: {
+    marginRight: 6,
+    fontSize: 18,
   },
   typeText: {
     color: "#1d4ed8",

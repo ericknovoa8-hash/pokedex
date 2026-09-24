@@ -81,7 +81,7 @@ const FavoritesScreen = () => {
 const styles = StyleSheet.create({
   list: {
     padding: 18,
-    backgroundColor: "#f8fafc",
+    backgroundColor: "#a8ddd7",
   },
   title: {
     marginBottom: 12,
@@ -93,7 +93,9 @@ const styles = StyleSheet.create({
     minHeight: 170,
     marginBottom: 12,
     borderRadius: 16,
-    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#000000",
+    backgroundColor: "#bfeee8",
     shadowColor: "#172033",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08,
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
-    backgroundColor: "#f8fafc",
+    backgroundColor: "#a8ddd7",
   },
   emptyTitle: {
     color: "#172033",
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 10,
-    backgroundColor: "#2563eb",
+    backgroundColor: "#0f766e",
   },
   backButtonText: {
     color: "#ffffff",

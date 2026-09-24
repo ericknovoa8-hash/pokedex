@@ -104,7 +104,7 @@ const PokemonListScreen = () => {
 const styles = StyleSheet.create({
   list: {
     padding: 12,
-    backgroundColor: "#f8fafc",
+    backgroundColor: "#a8ddd7",
   },
   title: {
     color: "#172033",
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   favoritesLinkText: {
-    color: "#2563eb",
+    color: "#0f766e",
     fontSize: 16,
     fontWeight: "600",
   },
@@ -130,7 +130,9 @@ const styles = StyleSheet.create({
     minHeight: 170,
     margin: 6,
     borderRadius: 16,
-    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#000000",
+    backgroundColor: "#bfeee8",
     shadowColor: "#172033",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08,
@@ -148,7 +150,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   pokemonName: {
-    color: "#172033",
+    color: "#134e4a",
     fontSize: 17,
     fontWeight: "600",
     textTransform: "capitalize",
